@@ -1,0 +1,49 @@
+training:
+  epochs: 1
+  batch_size: 8
+  accumulation_steps: 4
+  learning_rate: 5.62495054361787e-4
+  weight_decay: 0.06276429452559498
+  grad_clip: 1.2440619682545715
+  dtype: bfloat16
+
+distributed:
+  num_processes: 4
+  auto_accelerate_launch: 1
+  use_fsdp: 1
+  fsdp_sharding: full_shard
+
+data:
+  data_path: dataset/pretrain_hq.jsonl
+  num_workers: 2
+  max_seq_len: 340
+
+model:
+  hidden_size: 768
+  num_hidden_layers: 8
+  use_moe: 0
+
+checkpoint:
+  save_weight: pretrain_v2_best
+  save_dir: /data/huangyisong/my_project/minimind/out_v2
+  save_interval: 1000
+  from_resume: 1
+  from_weight: none
+
+logging:
+  stage: pretrain_v2
+  logs_dir: /data/huangyisong/my_project/minimind/logs_v2
+  run_tag: pretrain_v2_best_hp
+  log_interval: 200
+  log_to_file: 1
+  log_to_terminal: 0
+
+runtime:
+  use_compile: 0
+  target_tokens: 0
+  max_train_steps: 0
+  max_optimizer_steps: 0
+
+monitoring:
+  use_wandb: true
+  wandb_project: MiniMind-Pretrain-v2

@@ -1,6 +1,10 @@
+.venv/
 __pycache__/
 *.pyc
 .DS_Store
 out
+out_v2/
+checkpoints_v2/
+optuna_v2/
 website/
 docs-minimind/

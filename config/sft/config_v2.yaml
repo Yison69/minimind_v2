@@ -1,0 +1,47 @@
+training:
+  epochs: 2
+  batch_size: 16
+  accumulation_steps: 1
+  learning_rate: 1e-5
+  grad_clip: 1.0
+  dtype: bfloat16
+
+distributed:
+  num_processes: 4
+  auto_accelerate_launch: 1
+  use_fsdp: 1
+  fsdp_sharding: full_shard
+
+data:
+  data_path: dataset/sft_1024.jsonl
+  tokenizer_path: model
+  num_workers: 8
+  max_seq_len: 768
+
+model:
+  hidden_size: 768
+  num_hidden_layers: 8
+  use_moe: 0
+
+checkpoint:
+  save_weight: full_sft_v2
+  save_dir: out_v2
+  output_dir: checkpoints_v2/full_sft_v2
+  save_interval: 1000
+  save_total_limit: 3
+  from_resume: 0
+  from_weight: pretrain_v2_best
+  from_weight_dir:
+
+logging:
+  logging_dir: logs_v2/full_sft_v2
+  log_interval: 100
+
+runtime:
+  use_compile: 0
+  seed: 42
+
+monitoring:
+  use_wandb: true
+  wandb_project: MiniMind-Full-SFT-v2
+  wandb_run_name:
